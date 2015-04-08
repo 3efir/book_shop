@@ -1,0 +1,64 @@
+body {
+	background-image: url(/book_shop/resources/images/360_07.png);
+}
+
+.dnk_main_menu {
+	float: left;
+	height: 50px;
+	width: 195px;
+	background-color: white;
+	margin: 0 auto;
+}
+.dnk_fon {
+	background-color: #DCDCDC;
+	margin-bottom:20px;
+	position: relative;
+}
+.col-md-3 {
+	min-height:470px;
+	text-align:center;
+	border: 1px solid black;
+	margin:5px 45px;
+}
+.dnk_fon_body {
+	background-color: white;
+}
+.container-fluid {
+	background-color: white;
+}
+.col-md-7 {
+	margin: 0 auto;
+	text-align:center;
+	border: 1px solid black;
+}
+ul {
+	margin-top: 20px;
+}
+a {
+	text-align: center;
+}
+.desc {
+	text-align: center;
+	margin: 20px 20px;
+}
+.login {
+	margin: 20% 30%;
+}
+.register {
+	margin: 10% 30%;
+}
+table {
+	border-style: solid;
+	border-width: 1em;
+	border-color: #006699 salmon;
+	text-align: center;
+}
+.tdhead {
+	border-style: solid;
+	border-width: 1em;
+	border-color: #006699 salmon;
+	width:33%;
+}
+.pthead {
+	text-align: center;
+}
