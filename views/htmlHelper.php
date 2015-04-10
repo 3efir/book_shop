@@ -14,8 +14,8 @@ class htmlHelper
 				$tmp .= $value['price']."грн </br>";
 				$tmp .= "<ul class='nav nav-pills nav-justified'>
 					<li role='presentation'><a href='
-					/book_shop/description/index/".$value['id']."'>Description
-			</a></li><li role='presentation'><a href='/book_shop/cart/add/".$value['id']."' class='test'>Buy</a></li>
+					/~user8/book_shop/description/index/".$value['id']."'>Description
+			</a></li><li role='presentation'><a href='/~user8/book_shop/cart/add/".$value['id']."' class='test'>Buy</a></li>
 					</ul></div>";
 				$result .= $tmp;
 			}
@@ -35,7 +35,7 @@ class htmlHelper
 			$result .= $value['genre']."</br>";
 			$result .= $value['price']."грн </br>";
 			$result .= "<ul class='nav nav-pills nav-justified'>
-				<li role='presentation'><a href='/book_shop/cart/add/".$value['id']."'>Buy</a></li>
+				<li role='presentation'><a href='/~user8/book_shop/cart/add/".$value['id']."'>Buy</a></li>
 				</ul></p>";
 		}
 		return $result;
@@ -45,7 +45,7 @@ class htmlHelper
 		$result = "<ul class=$class><h2>$url</h2>";
 		foreach ($genres as $value)
 		{
-			$tmp = "<a href='/book_shop/".$url."/show/".$value['id']."'
+			$tmp = "<a href='/~user8/book_shop/".$url."/show/".$value['id']."'
 			class='list-group-item list-group-item-info'>".$value[$name] ."</a>";
 			$result .= $tmp;
 		}
@@ -57,7 +57,7 @@ class htmlHelper
 		$result = "<ul class=list-group>";
 		foreach ($data as $value)
 		{
-			$tmp = "<a href='/book_shop/admin/showUser/".$value['id']."'
+			$tmp = "<a href='/~user8/book_shop/admin/showUser/".$value['id']."'
 			class='list-group-item list-group-item-info'>".$value['name'].
 			"(".$value['email'].")</a>";
 			$result .= $tmp;
@@ -67,14 +67,14 @@ class htmlHelper
 	}
 	public function getLogin()
 	{
-		$result = "<li role='presentation' id='enter'><a href='/book_shop/login'>Вход</a></li>";
-		$result .= "<li role='presentation'><a href='/book_shop/register'>Регистрация</a></li>";
+		$result = "<li role='presentation' id='enter'><a href='/~user8/book_shop/login'>Вход</a></li>";
+		$result .= "<li role='presentation'><a href='/~user8/book_shop/register'>Регистрация</a></li>";
 		return $result;
 	}
 	public function getProfileLinks($id, $name)
 	{
-		$result = "<li role='presentation' id='enter'><a href='/book_shop/user/profile/".$id."'>".$name."</a></li>";
-		$result .= "<li role='presentation'><a href='/book_shop/login/closeSession'>Выход</a></li>";
+		$result = "<li role='presentation' id='enter'><a href='/~user8/book_shop/user/profile/".$id."'>".$name."</a></li>";
+		$result .= "<li role='presentation'><a href='/~user8/book_shop/login/closeSession'>Выход</a></li>";
 		return $result;
 	}
 	public function getCartTable($cart)
@@ -93,16 +93,47 @@ class htmlHelper
 			{
 				$result .= "<tr><td>".$i++."</td>";
 				$result .= "<td>".$value['title']."</td>";
-				$result .= "<td>".$value['cnt']."</td>";
+                $result .= "<td><span class='glyphicon glyphicon-minus'></span>
+                    <span class='number' name='".$value['Book_id']."'>".$value['cnt']."
+                    </span><span class='glyphicon glyphicon-plus'></span></td>";
 				$result .= "<td>".$value['price']."</td>";
 				$result .= "<td>".$value['cnt']*$value['price']."</td>";
-				$result .= "<td><a href='/book_shop/cart/remove/".$value['Book_id']."'> X </a></td></tr>";
+				$result .= "<td><a href='/~user8/book_shop/cart/remove/".$value['Book_id']."'> X </a></td></tr>";
 				$summ = $summ + ($value['cnt']*$value['price']);
-			}
-			$result .= "<tr><td></td><td></td><td></td><td>ТОТАЛ</td><td>".$summ*(100 - $cart[0]['discount'])."</td><td></td></tr>";
+            }
+            $disc = $summ*($cart[0]['discount']/100);
+            $total = $summ - $disc;
+            $result .= "<tr><td></td><td></td><td></td><td>ТОТАЛ</td><td>".$total."</td><td></td></tr>";
+            setcookie('total', $total);
 			return $result;
-		}
-	}
+        }
+    }
+    public function getPayment($payment)
+    {
+        $result = '';
+        foreach($payment as $value)
+        {
+            $result .= "<div class='form-group'><label><input type='radio' name='pay'
+                id='optionsRadios1' value='".$value['id']."' checked>
+                ".$value['payment_type']."</label></div>";
+        }
+        return $result;
+    }
+    public function radioStatus($data)
+    {
+        $result = '';
+        foreach($data as $value)
+        {
+            $result .= "<div class='form-group'><label><input type='radio' name='status'
+                id='optionsRadios1' value='".$value['id']."'>
+                ".$value['name']."</label></div>";
+        }
+        return $result;        
+    }
+    public function getMultiAuthors($authors)
+    {
+        
+    }
 }
 
 ?>

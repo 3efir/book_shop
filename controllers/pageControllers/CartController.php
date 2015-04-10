@@ -3,7 +3,8 @@ session_start();
 class CartController
 {
 	protected $view;
-	protected $facade;
+    protected $facade;
+    protected static $total;
 	public function __construct()
 	{
 		$this -> view = new CartView();
@@ -23,7 +24,7 @@ class CartController
 		}
 		else
 		{
-			header("Location: /book_shop/login");
+			header("Location: /~user8/book_shop/login");
 		}
 	}
 	public function countCart()
@@ -43,7 +44,38 @@ class CartController
 	{
 		$id = FrontController::getParams();
 		$this -> facade -> removeFromCart($id);
-	}
+    }
+    public function setCountAction()
+    {
+        $id = FrontController::getParams();
+        $this -> facade -> setCount($id);
+        header("Location: /~user8/book_shop/cart");
+    }
+    public function orderAction()
+    {
+        $payment = $this -> facade -> getPayment();
+        $cart = $this -> facade -> cartItems($_SESSION['id']);
+        if(!empty($cart))
+        {
+            $this -> view -> showOrder($cart, $payment);
+        }
+        else
+        {
+            $this -> view -> showOrder($cart);
+        }
+        return true;
+    }
+
+    public function sendOrderAction()
+    {
+		$cart = $this -> facade -> cartItems($_SESSION['id']);        
+        $pay = $_POST['pay'];
+        $user = $_SESSION['id'];
+        $summ = $_COOKIE['total'];
+        $this -> facade -> sendOrder($pay, $user, $summ, $cart);
+        header("Location: /~user8/book_shop/cart", true, 301);
+    }
+    
 }
 
 

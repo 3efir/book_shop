@@ -106,6 +106,11 @@ class formFacade
 		{
 			return "Enter genre";
 		}
-	}
+    }
+    public function getStatus()
+    {
+        $status = $this -> DBmodel -> SELECT(" id, name ") -> from(" status ") -> selected();
+        return $status;
+    }
 }
 ?>

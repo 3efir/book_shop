@@ -1,22 +1,19 @@
-<form action="/book_shop/admin/addBook" method="POST" class="register" name="addBook">
+<form action="/~user8/book_shop/admin/addBook" method="POST" class="register" name="addBook">
   	<div class="form-group">
-    <label for="title">Name</label>
+    <label for="title">Title</label>
     <input type="text" class="form-control" id="fname" name="title" placeholder="Enter book title" required>
   </div>
   <div class="form-group">
-    <label for="email">Email address</label>
-    <input type="email" class="form-control" name="email" id="email" placeholder="Enter email" required>
-  </div>
+    <label for="description">Description</label>
+    <textarea class="form-control" rows="3" name="description"></textarea>
+</div>
   <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" class="form-control" name="pass" id="password" placeholder="Password" required>
+    <label for="price">price</label>
+    <input type="text" class="form-control" name="price" id="price"
+    placeholder="price in grn" required>
   </div>
-  <div class="form-group">
-    <label for="conf_password">Confirm Password</label>
-    <input type="password" class="form-control" id="conf_password" name="conf_pass" placeholder="Password" required>
-  </div>
-  <button type="submit" name="submit" class="btn btn-default">Submit</button>
   	<?php
 		echo $test;
-	?>
+        ?>
+  <button type="submit" name="submit" class="btn btn-default">Submit</button>        
 </form>

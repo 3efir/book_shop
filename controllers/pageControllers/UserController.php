@@ -14,16 +14,20 @@ class UserController
 		$id = FrontController::getParams();
 		if($id !== $_SESSION['id'])
 		{
-			header("Location: /book_shop/user/wtf");
+			header("Location: /~user8/book_shop/user/wtf");
 		}
 		if(7 == $_SESSION['id'])
 		{
-			header("Location: /book_shop/admin");
+			header("Location: /~user8/book_shop/admin");
 		}
 		else
-		{
+        {
+            $user = $_SESSION['id'];
 			$result = $this -> facade -> getOrders($id);
-			$this -> view -> index($result);
+            $this -> view -> index($result);
+            $t = new OrdersModel();
+            $result = $t -> test($user);
+            $this -> view -> index($result);
 		}
 	}
 	

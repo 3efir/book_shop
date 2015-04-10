@@ -14,7 +14,7 @@ class IndexView
 	public function IndexAction($arr)
 	{
 		//class for div
-		$class = "col-md-3";
+		$class = "col-md-4";
 		$div = $this -> htmlHelper -> allBooks($arr, $class);
 		//second param - echo $test in template
 		$view = FrontController::render('../resources/templates/index.html', $div);

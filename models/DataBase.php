@@ -137,7 +137,7 @@ class DataBase
     public function DELETE($fields)
     {
         $this->sql = '';
-        $this->sql .= 'DELETE '.$fields;
+        $this->sql .= 'DELETE FROM '.$fields;
         return $this;
     }
     public function insertUpdate($arr)
@@ -184,16 +184,10 @@ class DataBase
     }
     function deleted()
     {
-        $save = $this->dbh->quote($this->sql);
-        if($this->dbh->exec($save))
-        {
-            $this->sql = '';
-            return true;
-        }
-        else
-        {
-            throw new Exception ("some wrong with delete");
-        }
+        //$save = $this->dbh->quote($this->sql);
+        $sth = $this -> dbh -> prepare($this -> sql);
+        $sth -> execute();
+       return true; 
     }
 	public function inner($tb)
 	{
@@ -235,7 +229,15 @@ class DataBase
 		{
 			throw new Exception ("not correct input for inner join");
 		}
-	}
-
+    }
+    public function getLastInsertId()
+    {
+        return $this -> dbh -> lastInsertId();
+    }
+    public function order($by)
+    {
+        $this -> sql .= "ORDER BY $by";
+        return $this;
+    }
 }
 ?>

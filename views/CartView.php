@@ -12,7 +12,20 @@ class CartView
 		$view = FrontController::render('../resources/templates/cart.html',$table);
 		FrontController::setBody($view);
 		return true;
-	}
+    }
+    public function showOrder($cart, $payment = '')
+    {
+        $table = $this -> htmlHelper -> getCartTable($cart);
+        if('' !== $payment)
+        {
+            $pay = $this -> htmlHelper -> getPayment($payment);
+            $order = FrontController::render('../resources/templates/order.html', $pay);
+            $table = $table.$order;
+        }
+        $view = FrontController::render('../resources/templates/cart.html',$table);
+        FrontController::setBody($view);
+        return true;
+    }
 }
 
 

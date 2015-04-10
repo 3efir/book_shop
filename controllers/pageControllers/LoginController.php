@@ -27,7 +27,7 @@ class LoginController
 
 				$_SESSION['user'] = $result[0]['name'];
 				$_SESSION['id'] = $result[0]['id'];
-				header("Location: /book_shop/user/profile/".$result[0]['id'], true, 301);
+				header("Location: /~user8/book_shop/user/profile/".$result[0]['id'], true, 301);
 				exit();
 		}
 		else
@@ -40,7 +40,7 @@ class LoginController
 	{
 		unset($_SESSION['id']);
 		unset($_SESSION['user']);
-		header("Location: /book_shop/", true, 301);
+		header("Location: /~user8/book_shop/", true, 301);
 	}
 
 }

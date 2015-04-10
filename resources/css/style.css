@@ -1,5 +1,5 @@
 body {
-	background-image: url(/book_shop/resources/images/360_07.png);
+	background-image: url(/~user8/book_shop/resources/images/360_07.png);
 }
 
 .dnk_main_menu {
@@ -14,7 +14,7 @@ body {
 	margin-bottom:20px;
 	position: relative;
 }
-.col-md-3 {
+.col-md-4 {
 	min-height:470px;
 	text-align:center;
 	border: 1px solid black;

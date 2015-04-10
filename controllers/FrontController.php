@@ -19,12 +19,12 @@ class FrontController
 		//user/get/id/1
 		$splits = explode('/',trim($request,'/'));
 		//Выбор контроллера
-		$this->_controller = !empty($splits[1])?ucfirst($splits[1]).'Controller':'IndexController';
+		$this->_controller = !empty($splits[2])?ucfirst($splits[2]).'Controller':'IndexController';
 		//Выбор экшена
-		$this->_action = !empty($splits[2])?$splits[2].'Action':'indexAction';
-		if(!empty($splits[3]))
+		$this->_action = !empty($splits[3])?$splits[3].'Action':'indexAction';
+		if(!empty($splits[4]))
 		{
-			self::$_params = $splits[3];
+			self::$_params = $splits[4];
 		}
 	}
 
@@ -57,7 +57,15 @@ class FrontController
 		$cnt = $cart -> countCart();
 		include(__DIR__.'/'.$file);
 		return ob_get_clean();
-	}
+    }
+    public static function templateRender($file, $arr)
+    {
+        foreach($arr as $key=>$val)
+        {
+            $file = str_replace($key, $val, $file);
+        }
+        return $file;
+    }    
 	public static function getParams()
 	{
 		return self::$_params;

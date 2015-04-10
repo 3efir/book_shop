@@ -3,11 +3,13 @@ session_start();
 class AdminController
 {
 	protected $view;
-	protected $facade;
+    protected $facade;
+    protected $ordersModel;
 	public function __construct()
 	{
 		$this -> view = new AdminView();
-		$this -> facade = new formFacade();
+        $this -> facade = new formFacade();
+        $this -> ordersModel = new OrdersModel();
 	}
 	public function IndexAction()
 	{
@@ -18,7 +20,7 @@ class AdminController
 		}
 		else
 		{
-			header("Location: /book_shop/user/wtf");
+			header("Location: /~user8/book_shop/user/wtf");
 		}
 	}
 
@@ -69,7 +71,9 @@ class AdminController
 	}
 
 	public function addBookAction()
-	{
+    {
+        $authors = $this -> mainFacade -> allAutors();
+        $genres = $this -> mainFacade -> allGenres();
 		if($_POST['title'])
 		{
 			$result = $this -> facade -> addGenre($_POST['genre']);
@@ -79,14 +83,33 @@ class AdminController
 			}
 			else
 			{
-				$this -> view -> addGenreForm($result);
+				$this -> view -> addBookForm($authors, $genres, $result);
 			}
 		}
 		else
 		{
-			$this -> view -> addBookForm();
+			$this -> view -> addBookForm($authors, $genres);
 		}
-	}
+    }
+    public function getOrdersAction()
+    {
+        $orders = $this -> ordersModel -> test();
+        $this -> view -> showOrders($orders);  
+    }
+    public function setStatusAction()
+    {
+        $id = FrontController::getParams();
+        if($_POST['status'])
+        {
+        
+        }
+        else
+        {
+            $stat = $this -> facade -> getStatus();
+            $this -> view -> changeStatus($stat);
+           return true; 
+        }
+    }
 }
 
 
