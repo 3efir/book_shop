@@ -20,8 +20,4 @@ App.factory('cartFactory',  function($http) {
 		}
 	}
 	return this.cart;
-
-
-
-
 });

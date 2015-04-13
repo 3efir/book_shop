@@ -8,11 +8,10 @@ class UserView
 	}
 	public function index($data)
 	{
-		$view = FrontController::render('../resources/templates/UserProfile.html', $data);
+		$view = FrontController::render(
+		'../resources/templates/UserProfile.html', $data);
 		FrontController::setBody($view);
 		return true;
 	}
-	
 }
-
 ?>

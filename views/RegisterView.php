@@ -4,7 +4,8 @@ class RegisterView
 	protected $err = '';
 	public function ShowForm()
 	{
-		$view = FrontController::render('../resources/templates/RegisterForm.html', $this -> err);
+		$view = FrontController::render(
+		'../resources/templates/RegisterForm.html', $this -> err);
 		FrontController::setBody($view);
 		return true;
 	}
@@ -13,6 +14,4 @@ class RegisterView
 		$this -> err = $err;
 	}
 }
-
-
 ?>

@@ -21,11 +21,10 @@ class ListView
 		$class = "list-group";
 		$ul = $this -> htmlHelper -> getList($data, $class, $name, $url);
 		//second param - echo $test in template
-		$view = FrontController::render('../resources/templates/index.html', $ul);
+		$view = FrontController::render('../resources/templates/index.html',
+		$ul);
 		FrontController::setBody($view);
 		return true;
 	}
-
 }
-
 ?>

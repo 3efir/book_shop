@@ -1,4 +1,5 @@
-<form action="/~user8/book_shop/admin/addBook" method="POST" class="register" name="addBook">
+<form action="/~user8/book_shop/admin/addBook" method="POST" class="register"
+ 	name="addBook" enctype='multipart/form-data'>
   	<div class="form-group">
     <label for="title">Title</label>
     <input type="text" class="form-control" id="fname" name="title" placeholder="Enter book title" required>
@@ -7,13 +8,17 @@
     <label for="description">Description</label>
     <textarea class="form-control" rows="3" name="description"></textarea>
 </div>
+ %AUTORS%
+ %GENRES%
   <div class="form-group">
     <label for="price">price</label>
     <input type="text" class="form-control" name="price" id="price"
     placeholder="price in grn" required>
   </div>
-  	<?php
-		echo $test;
-        ?>
-  <button type="submit" name="submit" class="btn btn-default">Submit</button>        
+    <div class="form-group">
+    <label for="exampleInputFile">Обложка книги</label>
+    <input type="file" id="exampleInputFile" name="file" required>
+  </div>
+ %ERRORS%
+  <button type="submit" name="submit" class="btn btn-default">Submit</button>
 </form>

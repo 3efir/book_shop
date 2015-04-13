@@ -1,4 +1,9 @@
 <?php
+/*
+* model work with db and template render
+* @param DB: stores DB object
+* this model used for order accordion
+*/
 class OrdersModel
 {
     protected $DB;
@@ -6,23 +11,29 @@ class OrdersModel
     {
         $this -> DB = DataBase::getInstance();
     }
+// incoming param id user if not incoming param - get all orders for admin
     public function test($user='')
     {
         //echo $file = dirname(__FILE__);
-        $file = file_get_contents('/usr/home/user8/public_html/book_shop/resources/templates/collapse.html');
+        //$file = file_get_contents('/usr/home/user8/public_html/book_shop/resources/templates/collapse.html');
+		$file = file_get_contents(
+		'C:\xampp\htdocs\~user8\book_shop\resources\templates\collapse.html');
         $result = '';
         if($user !== '')
         {
-            $orders = $this -> DB -> SELECT (" o.id, o.data_time, o.summ, p.payment_type, s.name ") ->
-            from(" orders o ") -> inner(" payment p ") -> on(" o.payment_id = p.id ") ->
-            inner(" status s ") -> on(" s.id = o.status ") -> where(" o.user_id = $user ") ->
+            $orders = $this -> DB -> SELECT (" o.id, o.data_time, o.summ,
+			p.payment_type, s.name ") -> from(" orders o ") -> inner("
+			payment p ") -> on(" o.payment_id = p.id ") -> inner(" status s ")
+			-> on(" s.id = o.status ") -> where(" o.user_id = $user ") ->
             order(" o.id desc ") -> selected();
         }
         else
         {
-            $orders = $this -> DB -> SELECT (" o.id, o.data_time, o.summ, p.payment_type, s.name, o.user_id ") ->
-            from(" orders o ") -> inner(" payment p ") -> on(" o.payment_id = p.id ") ->
-            inner(" status s ") -> on(" s.id = o.status ") -> order(" o.id desc ") -> selected(); 
+            $orders = $this -> DB -> SELECT (" o.id, o.data_time, o.summ,
+			p.payment_type, s.name, o.user_id ") -> from(" orders o ") ->
+			inner(" payment p ") -> on(" o.payment_id = p.id ") -> inner("
+			status s ") -> on(" s.id = o.status ") -> order(" o.id desc ") ->
+			selected();
         }
         $oh = array();
         foreach ($orders as $v)
@@ -35,19 +46,21 @@ class OrdersModel
         foreach($orders as $value)
         {
             $arr['%HREF%'] = $value['id'];
-            $arr['%TITLE%'] = "DATA: ".$value['data_time']." | SUMM: ".$value['summ']." | STATUS: ".$value["name"];
+            $arr['%TITLE%'] = "DATA: ".$value['data_time']." | SUMM: ".$value['
+			summ']." | STATUS: ".$value["name"];
             $body = '';
             foreach($oh[$value['id']] as $v)
             {
-                $body .= "BOOK: ".$v['title']." | COUNT: ".$v['cnt']." | PRICE: ".$v['price']."<hr>";
+                $body .= "BOOK: ".$v['title']." | COUNT: ".$v['cnt']." | PRICE:
+				".$v['price']."<hr>";
             }
             if('' == $user)
             {
-                $body .= "<a href='/~user8/book_shop/admin/setStatus/".$value['id']."'>Изменить статус</a>";
+                $body .= "<a href='/~user8/book_shop/admin/setStatus/".$value['
+				id']."'>Изменить статус</a>";
             }
             $arr['%BODY%'] = $body;
             $result .= FrontController::templateRender($file, $arr);
-
         }
         return $result;
     }

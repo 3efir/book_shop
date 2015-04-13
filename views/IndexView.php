@@ -17,7 +17,8 @@ class IndexView
 		$class = "col-md-4";
 		$div = $this -> htmlHelper -> allBooks($arr, $class);
 		//second param - echo $test in template
-		$view = FrontController::render('../resources/templates/index.html', $div);
+		$view = FrontController::render('../resources/templates/index.html', 
+		$div);
 		FrontController::setBody($view);
 		return true;
 	}
@@ -28,14 +29,17 @@ class IndexView
 		{
 			//$url = "<a href='/book_shop/login'>Вход</a>";
 			$url = $this -> htmlHelper -> getLogin();
-			$view = FrontController::render('../resources/templates/header.html',$url);
+			$view = FrontController::render('../resources/templates/header.html'
+			,$url);
 			FrontController::setBody($view);
 			return true;
 		}
 		else
 		{
-			$url = $this -> htmlHelper -> getProfileLinks($_SESSION['id'], $_SESSION['user']);
-			$view = FrontController::render('../resources/templates/header.html',$url);
+			$url = $this -> htmlHelper -> getProfileLinks($_SESSION['id'], 
+			$_SESSION['user']);
+			$view = FrontController::render('../resources/templates/header.html',
+			$url);
 			FrontController::setBody($view);
 			return true;
 		}
@@ -53,8 +57,6 @@ class IndexView
 		$view = FrontController::render('../resources/templates/menu.html', $menu);
 		FrontController::setBody($view);
 		return true;
-
 	}
 }
-
 ?>

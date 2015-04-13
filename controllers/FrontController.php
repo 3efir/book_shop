@@ -4,7 +4,7 @@ ini_set("display_errors", 1);
 class FrontController
 {
 	protected $_controller, $_action;
-	static $_instance, $_body, $_params;
+	static $_instance, $_body, $_params, $lang;
 
 	public static function getInstance()
 	{
@@ -65,7 +65,7 @@ class FrontController
             $file = str_replace($key, $val, $file);
         }
         return $file;
-    }    
+    }
 	public static function getParams()
 	{
 		return self::$_params;
@@ -86,6 +86,15 @@ class FrontController
 	{
 		self::$_body = $body;
 		return self::$_body;
+	}
+	public static function setLang($data)
+	{
+		self::$lang = $data;
+		return self::$lang;
+	}
+	public static function getLang()
+	{
+		return self::$lang;
 	}
 }
 ?>

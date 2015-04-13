@@ -1,9 +1,4 @@
 <?php
-/*
-*	working with facade
-*	used for index page
-*	
-*/
 class GenreController
 {
 	//stores view obj
@@ -12,15 +7,17 @@ class GenreController
 	//constructor create view obj
 	public function __construct()
 	{
-		$this -> view = new ListView();
+		$this -> view = new IndexView();
 		$this -> facade = new mainFacade();
+		return true;
 	}
+// call facade for select books by selected genre
 	public function ShowAction()
 	{
 		$id = FrontController::getParams();
 		$books = $this -> facade -> getBooksByGenre($id);
-		$indexView = new IndexView();
-		$indexView -> IndexAction($books);
+		$this -> view -> IndexAction($books);
+		return true;
 	}
 }
 ?>

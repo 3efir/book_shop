@@ -1,9 +1,16 @@
 <?php
+/*
+* SQL and PDO class
+* @param instance: singleton
+* @param dbh: stores PDO connect
+* @param sql: used for collecting sql query
+*/
 class DataBase
 {
     private static $instance = null;
     protected $dbh;
     protected $sql;
+// try construct PDO connect
     private function __construct()
     {
         $this->sql = '';
@@ -16,6 +23,7 @@ class DataBase
             echo $e->getMessage();
         }
     }
+// singleton
     static public function getInstance()
     {
         if (is_null(self::$instance))
@@ -24,7 +32,7 @@ class DataBase
         }
         return self::$instance;
     }
-
+// start sql collect for INSERT 
     public function INSERT($table)
     {
         $this->sql = '';
@@ -38,6 +46,7 @@ class DataBase
             throw new Exception ("enter table name");
         }
     }
+// @param keys: name of table fields
     public function keys($keys)
     {
         if($keys !== '')
@@ -62,6 +71,8 @@ class DataBase
             throw new Exception ("enter value for insert");
         }
     }
+// start collect sql for SELECT
+// @param fields: name fields in DB
     public function SELECT($fields)
     {
         $this->sql = '';
@@ -75,6 +86,7 @@ class DataBase
             throw new Exception ("no fields for select");
         }
     }
+// @param table: table name 
     public function from($table)
     {
         if ($table !== '')
@@ -87,6 +99,7 @@ class DataBase
             throw new Exception ("enter table name");
         }
     }
+// incoming param like 'id = 5'
     public function where($where)
     {
         if($where !== '')
@@ -99,6 +112,7 @@ class DataBase
             throw new Exception ("no value for operator where");
         }
     }
+// incoming param like 'id = 5'
 	public function whereAnd($and)
 	{
 		if($and !== '')
@@ -123,6 +137,8 @@ class DataBase
             throw new Exception ("not corect value for operator limit");
         }
     }
+// start collect sql for UPDATE
+// incoming param: table name
     public function UPDATE($table)
     {
         $this->sql = '';
@@ -134,12 +150,15 @@ class DataBase
         $this->sql .= ' SET '.$field.' = ? ';
         return $this;
     }
-    public function DELETE($fields)
+// start collect sql for DELETE
+    public function DELETE($table)
     {
         $this->sql = '';
-        $this->sql .= 'DELETE FROM '.$fields;
+        $this->sql .= 'DELETE FROM '.$table;
         return $this;
     }
+// execute prepare sql for INSERT or UPDATE
+// return true or throw new exception
     public function insertUpdate($arr)
     {
         if($this->sql !== '')
@@ -166,6 +185,7 @@ class DataBase
             throw new Exception ("not corect sql for insert/update");
         }
     }
+// execute prepare sql for SELECT
     public function selected()
     {
         if($this->sql !== '')
@@ -182,13 +202,14 @@ class DataBase
             throw new Exception ("failed");
         }
     }
+// execute prepare sql for DELETE
     function deleted()
     {
-        //$save = $this->dbh->quote($this->sql);
         $sth = $this -> dbh -> prepare($this -> sql);
         $sth -> execute();
-       return true; 
+        return true; 
     }
+// incoming param: table name
 	public function inner($tb)
 	{
 		if(trim($tb) !== '')
@@ -201,6 +222,7 @@ class DataBase
 			throw new Exception ("not correct input for inner join");
 		}
 	}
+// incoming param like 'table1.id = table2.id_table1'
 	public function on($fields)
 	{
 		if(trim($fields) !== '')

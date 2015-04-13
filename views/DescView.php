@@ -7,16 +7,14 @@ class DescView
 	{
 		$this -> htmlHelper = new htmlHelper();
 	}
-	
 	public function IndexAction($book)
 	{
 		$class = "desc";
 		$div = $this -> htmlHelper -> book($book, $class);
-		$view = FrontController::render('../resources/templates/index.html', $div);
+		$view = FrontController::render('../resources/templates/index.html', 
+		$div);
 		FrontController::setBody($view);
 		return true;
 	}
-
 }
-
 ?>

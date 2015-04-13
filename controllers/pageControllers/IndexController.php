@@ -2,7 +2,7 @@
 /*
 *	working with facade
 *	used for index page
-*	
+*
 */
 class IndexController
 {
@@ -14,8 +14,9 @@ class IndexController
 	{
 		$this -> view = new IndexView();
 		$this -> facade = new mainFacade();
+		echo FrontController::getLang();
 	}
-	//used facade for select all books 
+	//used facade for select all books
 	//call view index action and sends array
 	public function IndexAction()
 	{
@@ -27,11 +28,19 @@ class IndexController
 	{
 		$this -> view -> ShowHeader();
 	}
+	// called from angular directory for left filters 
 	public function MenuAction()
 	{
 		$authors = $this -> facade -> allAutors();
 		$genres = $this -> facade -> allGenres();
 		$this -> view -> ShowMenu($authors, $genres);
+	}
+	public function setLangAction()
+	{
+		$lang = FrontController::getParams();
+		FrontController::setLang($lang);
+		$r = $_SERVER['HTTP_REFERER'];
+		header('location: '.$r);
 	}
 }
 ?>

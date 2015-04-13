@@ -15,6 +15,7 @@ class AutorController
 	{
 		$this -> view = new ListView();
 		$this -> facade = new mainFacade();
+		return true;
 	}
 	//select books by id author 
 	//then create obj IndexView and send array
@@ -24,6 +25,7 @@ class AutorController
 		$books = $this -> facade -> getBooksByAutor($id);
 		$indexView = new IndexView();
 		$indexView -> IndexAction($books);
+		return true;
 	}
 }
 ?>
