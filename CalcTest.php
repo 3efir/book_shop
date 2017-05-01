@@ -19,11 +19,4 @@ class CalcTest extends PHPUnit_Framework_TestCase
 		$calc->setB($b);
 		$this->assertAttributeNotEmpty();
 	}
-	public function testSetB()
-	{
-		$calc = new Calc();
-		$calc->setB($b);
-		$calc->setB($b);
-		$this->assertAttributeNotEmpty();
-	}
 }
